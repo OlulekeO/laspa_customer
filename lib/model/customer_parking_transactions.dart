@@ -688,14 +688,11 @@ class _reportDetailsState extends State<reportDetails> {
 
                                         children: [
 
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text("Platenumber: "+ widget.value.PlateNumber,
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13.0)),
-                                          ),
+                                          Text("Platenumber: "+ widget.value.PlateNumber,
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13.0)),
 
 
                                           const SizedBox(
@@ -851,40 +848,62 @@ class _reportDetailsState extends State<reportDetails> {
                       //     ),
                       //   ],
 
+                      if (widget.value.Parkingstatus == '1') ...[
+                         Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child:   Expanded(
+                                child:Padding(
+                                  padding:  EdgeInsets.all(8.0),
+                                  child: MaterialButton(
+                                    minWidth: double.infinity,
+                                    height: 40,
+                                    onPressed: () async {
+                                      if(_formKey.currentState!.validate()){
+                                        setState(() => loading = true);
 
-                      Expanded(
-                        child:Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: MaterialButton(
-                            minWidth: double.infinity,
-                            height: 40,
-                            onPressed: () async {
-                              if(_formKey.currentState!.validate()){
-                                setState(() => loading = true);
-
-                                bookingCancel(widget.value.ParkingID);
-                              }
+                                        bookingCancel(widget.value.ParkingID);
+                                      }
 
 
 
-                              //Navigator.push(context, MaterialPageRoute(builder: (context) => agent_verification_result()));
-                            },
-                            color: Color(0xffffcc00),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Text(
-                              "Cancel Booking" ,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
+                                      //Navigator.push(context, MaterialPageRoute(builder: (context) => agent_verification_result()));
+                                    },
+                                    color: Color(0xffffcc00),
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: const Text(
+                                      "Cancel Booking" ,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),),
                         ),
-                      ),
+
+                      ]else if(widget.value.Parkingstatus == '2') ...[
+                        const Expanded(
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Text('Checkout', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: Colors.orange, ),)),
+                        ),
+
+                      ]
+
+                      else ...[
+                          const Expanded(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Text('Cancelled', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: Colors.red,),)),
+                          ),
+                        ],
+
                       // Expanded(
                       //   child:Padding(
                       //     padding: const EdgeInsets.all(8.0),
